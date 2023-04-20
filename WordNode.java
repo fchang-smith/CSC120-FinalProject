@@ -1,3 +1,5 @@
+import java.io.ObjectInputFilter.Status;
+
 public class WordNode extends Node {
 
     private String word;
@@ -7,10 +9,16 @@ public class WordNode extends Node {
         this.word = word;
     }
 
+    public String toString() {
+        return super.toString() + "\nword: " + this.word;
+    }
+
     public static void main(String[] args) {
         WordNode myNode = new WordNode(2, null, "null");
-        System.out.println();
+        System.out.println(myNode);
 
     }
+
+    
     
 }

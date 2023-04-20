@@ -4,6 +4,7 @@ public class Node {
     private Node parent;
     private Node LChild;
     private Node RChild;
+    private Boolean status = false;
 
     public Node (int value, Node lChild, Node RChild) {
         this.value = value;
@@ -24,21 +25,53 @@ public class Node {
         this.parent = parent;
         this.LChild = null;
         this.RChild = null;
+
     }
 
     public int getValue() {
         return this.value;
     }
 
-    public String getParent() {
+    public Node getParent() {
         return this.parent;
     }
 
-    public String getRChild() {
+    public Node getRChild() {
         return this.RChild;
     }
 
-    public String getLChild() {
+    public Node getLChild() {
         return this.LChild;
     }
+
+    public Boolean getStatus() {
+        return this.status;
+    }
+
+    public void setParent (Node n) {
+        this.parent = n;
+    }
+
+    public void setLChild (Node n) {
+        this.LChild = n;
+    }
+
+    public void setRChild (Node n) {
+        this.RChild = n;
+    }
+
+    public void setValue (int n) {
+        this.value = n;
+    }
+
+    public void setStatusTrue() {
+        this.status = true;
+    }
+
+    public String toString() {
+        return "value: " + this.value + "\nparent: " + this.parent + "\nLChild: " + this.LChild + "\nRChild: " + this.RChild + "\nstatus: " + this.status;
+    }
+
+    
+    
 }
