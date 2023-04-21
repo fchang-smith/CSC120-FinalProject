@@ -28,6 +28,11 @@ public class Node {
 
     }
 
+    public Node mergeNode(Node n1) {
+        Node nNode = new Node(this.getValue()+n1.getValue(), this, n1);
+        return nNode;
+    }
+
     public int getValue() {
         return this.value;
     }
@@ -69,7 +74,7 @@ public class Node {
     }
 
     public String toString() {
-        return "value: " + this.value + "\nparent: " + this.parent + "\nLChild: " + this.LChild + "\nRChild: " + this.RChild + "\nstatus: " + this.status;
+        return "value: " + String.valueOf(this.value) + "\nparent: " + String.valueOf(this.parent.getValue()) + "\nLChild: " + String.valueOf(this.LChild.getValue()) + "\nRChild: " + String.valueOf(this.RChild.getValue()) + "\nstatus: " + String.valueOf(this.status);
     }
 
     

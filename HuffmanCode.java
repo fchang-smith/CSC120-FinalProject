@@ -29,7 +29,6 @@ public class HuffmanCode {
           }
         }
         FileReader.close();
-        System.out.println(this.wordList);
       } catch (FileNotFoundException e) {
         e.printStackTrace();}
     }
@@ -55,7 +54,6 @@ public class HuffmanCode {
           this.wordCound.put(current, 1);
         }
       }
-      System.out.println(this.wordCound);
     }
 
     public static void main(String[] args) {
