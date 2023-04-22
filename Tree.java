@@ -18,15 +18,9 @@ public class Tree {
    public void build() {
       this.createNodes();
       this.twoMinValue();
-      for (int i = 0; i < this.tree.size(); i++){
-      System.out.println(i);
-      }
       this.buildTree();
-      for (int i = 0; i < this.tree.size(); i++){
-         System.out.println(this.tree.get(i).getClass());
-         System.out.println(this.tree.get(i));
-      }
    }
+
 
    private void buildTree() {
       while(this.isPossible()) {
@@ -46,19 +40,15 @@ public class Tree {
    }
 
    private boolean isPossible() {
-      System.out.println("enter isPossible");
       int t = 0;
       for (int i = 0; i< this.tree.size(); i++) {
          if (!this.tree.get(i).getStatus()) {
             t += 1;
          }
       }
-      System.out.println(t);
       if (t >= 2) {
-         System.out.println(true);
          return true;
       } else {
-         System.out.println(false);
          return false;
       }
    }
@@ -71,28 +61,160 @@ public class Tree {
          if (!check) {
             value = this.tree.get(i).getValue();
             idx = i;
-            System.out.println("starting idx:" + idx);
-            System.out.println("starting value: "+value);
             break;
          }
       } 
       for (Node n : this.tree) {
          boolean check = !n.getStatus();//should be false
          if (check && n.getValue()< value) {
-            System.out.println("original value: " + value);
-            System.out.println("i: " + this.tree.indexOf(n));
-            System.out.println("this.tree.get(i).getValue()< value: "+ n.getValue() + "<" + value);
             idx = this.tree.indexOf(n);
             value = n.getValue();
-            System.out.println("final idx: " + idx);
-            System.out.println("final value:" + n.getValue());
          }
       }
       this.tree.get(idx).setStatusTrue();
-      System.out.println("idx from minValueIdx: " + idx);
-      System.out.println(this.tree.get(idx).getStatus());
       return idx;
       
+   }
+
+   public String generateCode(String s) {
+      Node keyNode = null;
+      String code = "If this then wrong";
+      for (Node node : this.tree) {
+         if (node.isWordNode() && node.getWord().equals(s)) {
+            keyNode = node;
+            code = this.searchBack(keyNode);
+            break;
+         }
+      }
+      return code;
+   }
+
+   public static boolean checkNull(ArrayList<Node> nodeList) {
+      boolean notNull = false;
+      for (Node node : nodeList) {
+        if (node != null) {
+          notNull = true;
+        }
+      }
+      return notNull;
+    }
+
+   public ArrayList<Node> printTreeWord(ArrayList<Node> nodeList) {
+      ArrayList<Node> nextList = new ArrayList<Node>();
+      for (Node node : nodeList) {
+         if (node != null && node.hasChild()) {
+            nextList.add(node.getLChild());
+            nextList.add(node.getRChild());
+         } else {
+            nextList.add(null);
+            nextList.add(null);
+         }
+      }
+      String printList = "";
+      boolean notNull = checkNull(nodeList);
+      if (notNull) {
+         for (Node node : nextList) {
+            if (node != null) {
+               if (node.getClass().getName().equals("WordNode")) {
+                  printList = printList + node.getValue() + "(" + node.getWord() + ")";
+               } else {
+                  printList += node.getValue() + " ";
+               }
+            } else {
+               printList += "_ ";
+            }
+         }
+         System.out.println(printList);
+      } else {
+         nextList = null;
+      }
+      return nextList;
+   }
+
+   public ArrayList<Node> printTree(ArrayList<Node> nodeList) {
+      ArrayList<Node> nextList = new ArrayList<Node>();
+      for (Node node : nodeList) {
+         if (node != null && node.hasChild()) {
+            nextList.add(node.getLChild());
+            nextList.add(node.getRChild());
+         } else {
+            nextList.add(null);
+            nextList.add(null);
+         }
+      }
+      String printList = "";
+      boolean notNull = checkNull(nodeList);
+      if (notNull) {
+         for (Node node : nextList) {
+            if (node != null) {
+               printList += node.getValue() + " ";
+            } else {
+               printList += "_ ";
+            }
+         }
+         System.out.println(printList);
+      } else {
+         nextList = null;
+      }
+      return nextList;
+   }
+
+   // public void printTree() {
+   //    ArrayList<Node> child = new ArrayList<Node>();
+   //    ArrayList<Node> nextLoop = new ArrayList<Node>();
+   //    Node rootNode = this.findRootNode();
+   //    child.add(rootNode);
+   //    System.out.println(rootNode.getValue());
+   //    boolean loop = rootNode.hasChild();
+   //    while (loop) {
+   //       for (Node node : child) {
+   //          System.out.println(node.getLChild().getValue() + "  " + node.getRChild().getValue());
+   //          nextLoop.clear();
+   //          if (node.getLChild().hasChild()) {
+   //             nextLoop.add(node.getLChild());
+   //             loop = true;
+   //             if (node.getRChild().hasChild()) {
+   //                nextLoop.add(node.getRChild());
+   //             }
+   //          } else if (node.getRChild().hasChild()) {
+   //             System.out.println("here");
+   //             nextLoop.add(node.getRChild());
+   //             loop = true;
+   //          } else {
+   //             loop = false;
+   //          }
+   //       }
+   //       child = nextLoop;
+   //       System.out.println(loop);
+   //    }
+   // }
+
+   public Node findRootNode() {
+      Node rootNode = null;
+      for (Node node : this.tree) {
+         if (!node.hasParent()) {
+            rootNode = node;
+            break;
+         }
+      }
+      return rootNode;
+   }
+
+   private String searchBack(Node n) {
+      Node parentNode = null;
+      boolean loop = n.hasParent();
+      String code = "";
+      while (loop) {
+         parentNode = n.getParent();
+         if (parentNode.getLChild().equals(n)) {
+            code = "0" + code;
+         } else {
+            code = "1" + code;
+         }
+         n = parentNode;
+         loop = parentNode.hasParent();
+      }
+      return code;
    }
 
 
@@ -108,6 +230,41 @@ public class Tree {
       }
    }
 
+   public void printNodeList(){
+      for (Node node : this.tree) {
+         int idx = this.tree.indexOf(node);
+         int value = node.getValue();
+         String status = String.valueOf(node.getStatus());
+         String parent = "";
+         String LChild = "";
+         String RChild = "";
+         if (node.getParent() == null) {
+            parent = "null";
+         } else {
+            parent = String.valueOf(node.getParent().getValue());
+         }
+         if (node.getLChild() == null) {
+            LChild = "null";
+         } else {
+            LChild = String.valueOf(node.getLChild().getValue());
+         }
+         if (node.getRChild() == null) {
+            RChild = "null";
+         } else {
+            RChild = String.valueOf(node.getRChild().getValue());
+         }
+         System.out.println("idx: " + idx);
+         System.out.println("value: " + value);
+         if (node.getClass().getName().equals("WordNode")) {
+            System.out.println("word: " + node.getWord());
+         }
+         System.out.println("parent: " + parent);
+         System.out.println("LChild: " + LChild);
+         System.out.println("RChild: " + RChild);
+         System.out.println("status: " + status);
+      }
+   }
+
 
    // public static void main(String[] args) {
    //    Hashtable<String, Integer> myTable = new Hashtable<String, Integer>();
@@ -116,9 +273,15 @@ public class Tree {
    //    myTable.put("args3", 1);
    //    Tree myTree = new Tree(myTable);
    //    myTree.build();
+   //    ArrayList<Node> list = new ArrayList<Node>();
+   //    list.add(myTree.findRootNode());
+   //    System.out.println(myTree.findRootNode().getValue());
+   //    list = myTree.printTree(list);
+   //    list = myTree.printTree(list);
+      
    // }
-
    // for (int i = 0; i < this.tree.size(); i++){
    //    System.out.println(this.tree.get(i));
-   // }
+   
+   //}
 }

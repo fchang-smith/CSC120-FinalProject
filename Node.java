@@ -37,6 +37,26 @@ public class Node {
         return this.value;
     }
 
+    public boolean isWordNode() {
+        return false;
+    }
+
+    public boolean hasParent() {
+        if (this.getParent() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean hasChild() {
+        if (this.getLChild()!= null && this.getLChild() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public Node getParent() {
         return this.parent;
     }
@@ -69,14 +89,16 @@ public class Node {
         this.value = n;
     }
 
+    public String getWord(){
+        return "This should not appear -- Node.getWord()";
+    }
+
     public void setStatusTrue() {
         this.status = true;
     }
 
     public String toString() {
-        return "value: " + String.valueOf(this.value) + "\nparent: " + String.valueOf(this.parent.getValue()) + "\nLChild: " + String.valueOf(this.LChild.getValue()) + "\nRChild: " + String.valueOf(this.RChild.getValue()) + "\nstatus: " + String.valueOf(this.status);
+        return "value: " + String.valueOf(this.value) + "\nLChild: " + String.valueOf(this.LChild.getValue()) + "\nRChild: " + String.valueOf(this.RChild.getValue()) + "\nstatus: " + String.valueOf(this.status);
     }
-
-    
     
 }

@@ -1,3 +1,4 @@
+
 public class WordNode extends Node {
 
     private String word;
@@ -7,8 +8,16 @@ public class WordNode extends Node {
         this.word = word;
     }
 
+    public String getWord() {
+        return this.word;
+    }
+
     public String toString() {
         return "value: " + String.valueOf(this.getValue()) + "\nword: " + this.word + "\nparent: " + String.valueOf(this.getParent().getValue()) +  "\nstatus: " + String.valueOf(this.getStatus());
+    }
+
+    public boolean isWordNode() {
+        return true;
     }
 
     public static void main(String[] args) {
