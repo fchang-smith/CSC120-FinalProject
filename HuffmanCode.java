@@ -108,39 +108,29 @@ public class HuffmanCode {
 
     
 
-    public String deCode(String code) {
+    public void deCode(String code, String filePath) {
       char[] path = code.toCharArray();
-      int idx;
-      Node upNode = this.tree.findRootNode();
-      Node downNode = null;
-      for (int i = 0; i < path.length; i++) {
-        if (upNode.hasChild()){
-          idx = i;
-          char edge = path[i];
-          if (edge == 0) {
-            downNode = upNode.getLChild();
-          } else if (edge == 1) {
-            downNode = upNode.getRChild();
-          }
-          upNode = downNode;
-        } else{
-          break;
-        }
-      }
-      return "";
-    }
-
-    private int convertCode(int idx, char[] path, String filePath) {
-      Node upNode = this.tree.findRootNode();
-      Node downNode = null;
+      int idx = 0;
       try {
         File newFile = new File(filePath);
         newFile.createNewFile();
       } catch (IOException e) {
         e.getMessage();
       }
+      while (idx < path.length -1) {
+        idx = convertCode(idx, path, filePath);
+        System.out.println(idx);
+      }
+      System.out.println("File is decompressed into: " + filePath);
+    }
+
+    private int convertCode(int idx, char[] path, String filePath) {
+      Node upNode = this.tree.findRootNode();
+      Node downNode = null;
       for (int i = idx; i < path.length; i++) {
         idx = i;
+        System.out.println("upNode: "+upNode);
+        System.out.println("downNode: "+downNode);
         char edge = path[i];
         System.out.println("edge: "+edge);
         if (edge == 0) {
@@ -152,6 +142,8 @@ public class HuffmanCode {
           try {
             FileWriter myWriter = new FileWriter(filePath);
             myWriter.append(upNode.getWord());
+            System.out.println(upNode);
+            System.out.println(upNode.getWord());
             myWriter.close();
           } catch (IOException e) {
             e.getMessage();
@@ -168,10 +160,11 @@ public class HuffmanCode {
         myCode.loadFile("/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TheBoarPrincess.txt");
         myCode.buildTree();
         myCode.generateCode();
-        myCode.printTreeWord();
-        char [] path = "1100".toCharArray();
-        int num = myCode.convertCode(0, path, "/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TestTheBoarPrincess.txt");
-        System.out.println(num);
-        System.out.println("code for out: " + myCode.generateCode("out"));
+        myCode.printTree();
+        char [] path = myCode.generateCode().toCharArray();
+        String filePath = "/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TestTheBoarPrincess.txt";
+        myCode.deCode(myCode.generateCode(), "/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TestTheBoarPrincess.txt");
+        //myCode.convertCode(0, path, filePath);
+        //System.out.println("code for out: " + myCode.generateCode("out"));
     }
 }
