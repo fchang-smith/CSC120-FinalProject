@@ -161,9 +161,10 @@ public class HuffmanCode {
         myCode.buildTree();
         myCode.generateCode();
         myCode.printTree();
-        char [] path = myCode.generateCode().toCharArray();
-        String filePath = "/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TestTheBoarPrincess.txt";
-        myCode.deCode(myCode.generateCode(), "/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TestTheBoarPrincess.txt");
+        myCode.printTreeWord();
+        //char [] path = myCode.generateCode().toCharArray();
+        //String filePath = "/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TestTheBoarPrincess.txt";
+        //myCode.deCode(myCode.generateCode(), "/Users/fiona/Library/Mobile Documents/com~apple~CloudDocs/smith/Study/2023_Spring/CSC_120/CSC120-FinalProject/TestTheBoarPrincess.txt");
         //myCode.convertCode(0, path, filePath);
         //System.out.println("code for out: " + myCode.generateCode("out"));
     }
