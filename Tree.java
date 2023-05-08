@@ -159,36 +159,6 @@ public class Tree {
       return nextList;
    }
 
-   // public void printTree() {
-   //    ArrayList<Node> child = new ArrayList<Node>();
-   //    ArrayList<Node> nextLoop = new ArrayList<Node>();
-   //    Node rootNode = this.findRootNode();
-   //    child.add(rootNode);
-   //    System.out.println(rootNode.getValue());
-   //    boolean loop = rootNode.hasChild();
-   //    while (loop) {
-   //       for (Node node : child) {
-   //          System.out.println(node.getLChild().getValue() + "  " + node.getRChild().getValue());
-   //          nextLoop.clear();
-   //          if (node.getLChild().hasChild()) {
-   //             nextLoop.add(node.getLChild());
-   //             loop = true;
-   //             if (node.getRChild().hasChild()) {
-   //                nextLoop.add(node.getRChild());
-   //             }
-   //          } else if (node.getRChild().hasChild()) {
-   //             System.out.println("here");
-   //             nextLoop.add(node.getRChild());
-   //             loop = true;
-   //          } else {
-   //             loop = false;
-   //          }
-   //       }
-   //       child = nextLoop;
-   //       System.out.println(loop);
-   //    }
-   // }
-
    public Node findRootNode() {
       Node rootNode = null;
       for (Node node : this.tree) {
@@ -264,24 +234,4 @@ public class Tree {
          System.out.println("status: " + status);
       }
    }
-
-
-   // public static void main(String[] args) {
-   //    Hashtable<String, Integer> myTable = new Hashtable<String, Integer>();
-   //    myTable.put("args1", 3);
-   //    myTable.put("args2", 4);
-   //    myTable.put("args3", 1);
-   //    Tree myTree = new Tree(myTable);
-   //    myTree.build();
-   //    ArrayList<Node> list = new ArrayList<Node>();
-   //    list.add(myTree.findRootNode());
-   //    System.out.println(myTree.findRootNode().getValue());
-   //    list = myTree.printTree(list);
-   //    list = myTree.printTree(list);
-      
-   // }
-   // for (int i = 0; i < this.tree.size(); i++){
-   //    System.out.println(this.tree.get(i));
-   
-   //}
 }
