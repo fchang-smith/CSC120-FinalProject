@@ -1,6 +1,7 @@
 public class HuffmanDecode {
     public static void main(String[] args) {
-        boolean e = true;
-        System.out.println(! e);
+        for (int i=0; i<5; i++) {
+            System.out.println(i);
+        }
     }
 }
