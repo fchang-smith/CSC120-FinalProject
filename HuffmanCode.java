@@ -12,7 +12,7 @@ import java.io.FileWriter;
  */
 public class HuffmanCode {
   private ArrayList<String> wordList;
-  private Hashtable<String, Integer> wordCound; 
+  private Hashtable<String, Integer> wordCount; 
   private Tree tree;
 
   /**
@@ -21,7 +21,7 @@ public class HuffmanCode {
   public HuffmanCode() {
     this.wordList = new ArrayList<String>();
     this.tree = null;
-    this.wordCound = new Hashtable<String, Integer>();
+    this.wordCount = new Hashtable<String, Integer>();
 
   }
 
@@ -58,7 +58,7 @@ public class HuffmanCode {
       throw new RuntimeException("You need to load a text file using loadFile() first!");
     } else {
       this.countWord();
-      this.tree = new Tree(wordCound);
+      this.tree = new Tree(wordCount);
       this.tree.build();
       }
     }
@@ -69,11 +69,11 @@ public class HuffmanCode {
   private void countWord() {
     for (int i = 0; i < this.wordList.size(); i++) {
       String current = this.wordList.get(i);
-      if (this.wordCound.containsKey(current)) {
-        int value = this.wordCound.get(current);
-        this.wordCound.replace(current, value+1);
+      if (this.wordCount.containsKey(current)) {
+        int value = this.wordCount.get(current);
+        this.wordCount.replace(current, value+1);
       } else {
-        this.wordCound.put(current, 1);
+        this.wordCount.put(current, 1);
       }
     }
   }
@@ -122,6 +122,9 @@ public class HuffmanCode {
    * @return String code
    */
   public String generateCode() {
+    if (this.tree == null) {
+      throw new RuntimeException("Please build tree first");
+    }
     String code = "";
     for (String word : this.wordList) {
       code += this.tree.generateCode(word);
@@ -136,6 +139,9 @@ public class HuffmanCode {
    * @return String code
    */
   public String generateCode(String word) {
+    if (this.tree == null) {
+      throw new RuntimeException("Please build tree first");
+    }
     String code = "";
     code = this.tree.generateCode(word);
     System.out.println(code);
