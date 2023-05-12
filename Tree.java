@@ -1,20 +1,29 @@
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map.Entry;
-
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * binary tree
+ */
 public class Tree {
 
    private Hashtable<String, Integer> wordCount;
    private ArrayList<Node> tree;
    
+   /**
+    * constructor 
+    * @param wordCount hashtable with words and wordcount
+    */
    public Tree (Hashtable<String, Integer> wordCount) {
     this.wordCount = wordCount;
     this.tree = new ArrayList<Node>();
    }
 
+   /**
+    * convert individual word into words and build tree
+    */
    public void build() {
       this.createNodes();
       this.twoMinValue();
@@ -22,12 +31,19 @@ public class Tree {
    }
 
 
+   /**
+    * build tree
+    */
    private void buildTree() {
       while(this.isPossible()) {
          this.twoMinValue();
       }
    }
 
+
+   /**
+    * Get 2 nodes with minimal values and add together to form a new node 
+    */
    private void twoMinValue() {
       int idx1 = this.minValueIdx();
       int idx2 = this.minValueIdx();
@@ -39,6 +55,10 @@ public class Tree {
       this.tree.add(newNode);
    }
 
+   /**
+    * check if it is possible to find more than 1 unchosen node
+    * @return
+    */
    private boolean isPossible() {
       int t = 0;
       for (int i = 0; i< this.tree.size(); i++) {
@@ -53,6 +73,10 @@ public class Tree {
       }
    }
 
+   /**
+    * find the node with least value
+    * @return index 
+    */
    private int minValueIdx() {
       int value = -1;
       int idx = -1;
@@ -76,6 +100,11 @@ public class Tree {
       
    }
 
+   /**
+    * generate code
+    * @param s generate code for a specific word s
+    * @return code for a specific word
+    */
    public String generateCode(String s) {
       Node keyNode = null;
       String code = "If this then wrong";
@@ -89,6 +118,11 @@ public class Tree {
       return code;
    }
 
+   /**
+    * check if the nodelist has element
+    * @param nodeList the nodelist to be checked
+    * @return true if it contains at least one element
+    */
    public static boolean checkNull(ArrayList<Node> nodeList) {
       boolean notNull = false;
       for (Node node : nodeList) {
@@ -99,6 +133,11 @@ public class Tree {
       return notNull;
     }
 
+    /**
+     * print out tree with word
+     * @param nodeList list with all nodes
+     * @return arraylist
+     */
    public ArrayList<Node> printTreeWord(ArrayList<Node> nodeList) {
       ArrayList<Node> nextList = new ArrayList<Node>();
       for (Node node : nodeList) {
@@ -131,6 +170,11 @@ public class Tree {
       return nextList;
    }
 
+   /**
+    * print out tree
+    * @param nodeList list with all nodes
+    * @return arraylist
+    */
    public ArrayList<Node> printTree(ArrayList<Node> nodeList) {
       ArrayList<Node> nextList = new ArrayList<Node>();
       for (Node node : nodeList) {
@@ -159,6 +203,10 @@ public class Tree {
       return nextList;
    }
 
+   /**
+    * find the root node of a tree
+    * @return root node
+    */
    public Node findRootNode() {
       Node rootNode = null;
       for (Node node : this.tree) {
@@ -170,6 +218,11 @@ public class Tree {
       return rootNode;
    }
 
+   /**
+    * assign code to node by searching back the tree
+    * @param n the node you want to know
+    * @return the code of the node
+    */
    private String searchBack(Node n) {
       Node parentNode = null;
       boolean loop = n.hasParent();
@@ -188,6 +241,9 @@ public class Tree {
    }
 
 
+   /**
+    * convert individual word into nodes
+    */
    private void createNodes() {
       Set<Entry<String, Integer>> entrySet = this.wordCount.entrySet();
       Iterator<Entry<String, Integer>> iterator = entrySet.iterator();
@@ -200,6 +256,9 @@ public class Tree {
       }
    }
 
+   /**
+    * print out node list
+    */
    public void printNodeList(){
       for (Node node : this.tree) {
          int idx = this.tree.indexOf(node);
